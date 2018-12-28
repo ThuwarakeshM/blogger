@@ -63,6 +63,15 @@ class BlogPage(Page):
         else:
             return None
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        # Extra context variables here
+        context['next'] = self.get_next_sibling()
+        context['prev'] = self.get_prev_sibling()
+
+        return context
+
 class BlogPageGalleryImage(Orderable):
     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
     image = models.ForeignKey(

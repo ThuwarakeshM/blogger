@@ -75,8 +75,13 @@
                         <blockquote>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</blockquote>
                         
                         <div class="navigation-wrap justify-content-between d-flex">
-                            <a class="prev" href="#"><span class="lnr lnr-arrow-left"></span>Prev Post</a>
-                            <a class="next" href="#">Next Post<span class="lnr lnr-arrow-right"></span></a>
+                            {% if prev %}
+                                <a class="prev" href="{% pageurl prev %}"><span class="lnr lnr-arrow-left"></span>Prev Post</a>                            
+                            {% endif %}
+
+                            {% if next %}
+                                <a class="next" href="{% pageurl next %}">Next Post<span class="lnr lnr-arrow-right"></span></a>
+                            {% endif %}
                         </div>
                         
                         <div class="comment-sec-area">
