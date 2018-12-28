@@ -55,9 +55,13 @@
                     <!-- Start single-post Area -->
                     <div class="single-post-wrap">
                         <div class="content-wrap">
+                            {% if page.tags.all.count %}
                             <ul class="tags">
-                                <li><a href="#">Food Habit</a></li>
+                                {% for tag in page.tags.all %}
+                                    <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                {% endfor %}
                             </ul>
+                            {% endif %}
                             <a href="#">
                                 <h3>A Discount Toner Cartridge Is Better Than Ever.</h3>
                             </a>
