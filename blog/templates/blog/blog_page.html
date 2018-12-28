@@ -66,9 +66,9 @@
                                 <h3>A Discount Toner Cartridge Is Better Than Ever.</h3>
                             </a>
                             <ul class="meta pb-20">
-                                <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li>
-                                <li><a href="#"><span class="lnr lnr-calendar-full"></span>03 April, 2018</a></li>
-                                <li><a href="#"><span class="lnr lnr-bubble"></span>06 </a></li>
+                                {% comment %} <li><a href="#"><span class="lnr lnr-user"></span>{{ page.author }}</a></li> {% endcomment %}
+                                <li><a href="#"><span class="lnr lnr-calendar-full"></span>{{ page.publication_date }}</a></li>
+                                {% comment %} <li><a href="#"><span class="lnr lnr-bubble"></span>06 </a></li> {% endcomment %}
                             </ul>
                             {{ page.body|richtext }}
                         <div class="navigation-wrap justify-content-between d-flex">
@@ -81,7 +81,7 @@
                             {% endif %}
                         </div>
                         
-                        <div class="comment-sec-area">
+                        {% comment %} <div class="comment-sec-area">
                             <div class="container">
                                 <div class="row flex-column">
                                     <h6>05 Comments</h6>
@@ -144,9 +144,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
-                    <div class="comment-form">
+                    {% comment %} <div class="comment-form">
                         <h4>Post Comment</h4>
                         <form>
                             <div class="form-group form-inline">
@@ -165,7 +165,7 @@
                             </div>
                             <a href="#" class="primary-btn text-uppercase">Post Comment</a>
                         </form>
-                    </div>
+                    </div> {% endcomment %}
                 </div>
                 <!-- End single-post Area -->
             </div>
