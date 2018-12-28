@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-blogindexpage{% endblock %}
 
@@ -14,9 +14,23 @@
         <div class="container no-padding">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="hero-nav-area">
-                        <h1 class="text-white">Standard Post</h1>
-                        <p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="#">Post Types </a><span class="lnr lnr-arrow-right"></span><a href="standard-post.html">Standard Post </a></p>
+                    <div class="hero-nav-area" 
+                    {% with page.main_image as main_image %}
+                        {% if main_image %}
+                            
+                            {% image main_image fill-1200x300-c100 as tmp_img %}
+                            style="background-image:url({{ tmp_img.url }});"
+
+                        {% endif %}
+                    {% endwith %}
+                    >
+                        <h1 class="text-white">{{page.title}}</h1>
+                        <p class="text-white link-nav">
+                            <a href="/">Home </a>  <span class="lnr lnr-arrow-right"></span>
+                            {% if page.category %}
+                                <a href="{% pageurl page.get_parent %}"> {{page.category.name}} </a><span class="lnr lnr-arrow-right"></span>
+                            {% endif %}
+                            <a href="{% pageurl page %}"> {{page.title}} </a></p>
                     </div>
                 </div>
                 <div class="col-lg-12">
