@@ -68,8 +68,17 @@
                             {% endwith %}
                         {% endfor %}
                         
-                        <div class="load-more">
-                            <a href="#" class="primary-btn">Load More Posts</a>
+                        <!-- Pagination Area -->
+                        <div class="navigation-wrap justify-content-between d-flex" style="margin-top:5%;">
+
+                            {% if blogposts.has_previous %}
+                                <a class="prev primary-btn" href="?page={{ blogposts.previous_page_number }}">Prev Page</a>                            
+                            {% endif %}
+
+                            {% if blogposts.has_next %}
+                                <a class="next primary-btn" href="?page={{ blogposts.next_page_number }}">Next Page</a>
+                            {% endif %}
+
                         </div>
                         
                     </div>

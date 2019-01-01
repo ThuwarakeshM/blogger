@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -24,7 +25,20 @@ class BlogIndexPage(Page):
         context = super().get_context(request, *args, **kwargs)
 
         # Context variables here
-        context['blogposts'] = self.get_children().live().order_by('-first_published_at')
+        all_blogposts = self.get_children().live().order_by('-first_published_at')
+        paginator = Paginator(all_blogposts, 10)
+
+        page = request.GET.get('page')
+        try:
+            blogposts = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            blogposts = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            blogposts = paginator.page(paginator.num_pages)
+
+        context['blogposts'] = blogposts
 
         return context
 
