@@ -39,6 +39,9 @@ class BlogIndexPage(Page):
             blogposts = paginator.page(paginator.num_pages)
 
         context['blogposts'] = blogposts
+        context['hot'] = self.get_children().filter(blogpage__hot_news=True).live().last()
+        context['editors_picks'] = self.get_children().filter(blogpage__editors_pick=False).live().order_by('-first_published_at')[:3]
+        context['popular'] = self.get_children().live().order_by('-blogpage__views')[:5]
 
         return context
 
