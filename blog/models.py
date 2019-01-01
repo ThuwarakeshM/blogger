@@ -16,9 +16,17 @@ from wagtail.snippets.models import register_snippet
 
 class BlogIndexPage(Page):
     intro = models.CharField(max_length=250, blank=True, null=True)
+
+    def main_image(self):
+        gallery_item = self.gallery_images.first()
+        if gallery_item:
+            return gallery_item.image
+        else:
+            return None
     
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname='full'),
+        InlinePanel('gallery_images', label="Gallery images"),
     ]
 
     def get_context(self, request, *args, **kwargs):
@@ -118,6 +126,17 @@ class BlogPageGalleryImage(Orderable):
         FieldPanel('caption'),
     ]
 
+class BlogIndexPageGalleryImage(Orderable):
+    page = ParentalKey(BlogIndexPage, on_delete=models.CASCADE, related_name='gallery_images')
+    image = models.ForeignKey(
+        'wagtailimages.Image', on_delete=models.CASCADE, related_name='+'
+    )
+    caption = models.CharField(blank=True, max_length=250)
+
+    panels = [
+        ImageChooserPanel('image'),
+        FieldPanel('caption'),
+    ]
 class BlogTagIndexPage(Page):
 
     def get_context(self, request):
