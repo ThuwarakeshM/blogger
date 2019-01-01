@@ -42,12 +42,22 @@ class BlogPage(Page):
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     category = models.ForeignKey('blog.BlogCategory', on_delete=models.SET_NULL, null=True)
 
+    editors_pick = models.BooleanField(default=False)
+    hot_news = models.BooleanField(default=False)
+
+    views = models.IntegerField(default=0)
+
+    
+
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('publication_date'),
             FieldPanel('tags'),
-            FieldPanel('category')
+            FieldPanel('category'),
+            FieldPanel('editors_pick'),
+            FieldPanel('hot_news')
         ], heading="Blog information"),
+        FieldPanel('intro'),
         FieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery images"),
     ]
@@ -66,9 +76,16 @@ class BlogPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
+        #Context Operations
+        self.views += 1
+        self.save()
+
         # Extra context variables here
         context['next'] = self.get_next_sibling()
         context['prev'] = self.get_prev_sibling()
+        context['hot'] = self.get_siblings().filter(blogpage__hot_news=True).live().last()
+        context['editors_picks'] = self.get_siblings().filter(blogpage__editors_pick=False).live().order_by('-first_published_at')[:3]
+        context['popular'] = self.get_siblings().live().order_by('-blogpage__views')[:5]
 
         return context
 
