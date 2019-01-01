@@ -43,7 +43,6 @@
                                         <div class="feature-img relative">
                                             <div class="overlay overlay-bg"></div>
                                             {% image post.main_image fill-263x180 class="img-fluid" %}
-                                            {% comment %} <img class="img-fluid" src="{% static 'img/r3.jpg' %}" alt=""> {% endcomment %}
                                         </div>
                                         <ul class="tags">
                                             {% for tag in post.tags.all %}
@@ -52,7 +51,7 @@
                                         </ul>
                                     </div>
                                     <div class="col-lg-7 post-right">
-                                        <a href="image-post.html">
+                                        <a href="{% pageurl post %}">
                                             <h4>{{ post.title }}</h4>
                                         </a>
                                         <ul class="meta">
