@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from modelcluster.fields import ParentalKey
@@ -11,6 +12,8 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+from wagtail.search.models import Query
+from wagtail.search.backends import get_search_backend
 
 
 
@@ -169,3 +172,40 @@ class BlogCategory(models.Model):
 
     class Meta:
         verbose_name_plural = 'blog categories'
+
+class BlogSearchPage(BlogIndexPage):
+
+    template = 'blog/blog_index_page.html'
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        s = get_search_backend()
+
+        search_query = request.GET.get('query', None)
+        if search_query:
+            search_results = s.search(search_query, BlogPage)
+
+            # Log the query so Wagtail can suggest promoted results
+            Query.get(search_query).add_hit()
+        else:
+            search_results = Page.objects.none()
+
+        paginator = Paginator(search_results, 10, 5)
+
+        page = request.GET.get('page')
+        try:
+            blogposts = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            blogposts = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            blogposts = paginator.page(paginator.num_pages)
+
+        context['blogposts'] = blogposts
+        context['hot'] = BlogPage.objects.filter(hot_news=True).live().last()
+        context['editors_picks'] = BlogPage.objects.filter(editors_pick=False).live().order_by('-first_published_at')[:3]
+        context['popular'] = BlogPage.objects.live().order_by('-views')[:5]
+
+        return context
