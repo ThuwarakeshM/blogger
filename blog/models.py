@@ -51,7 +51,7 @@ class BlogIndexPage(Page):
 
         context['blogposts'] = blogposts
         context['hot'] = self.get_children().filter(blogpage__hot_news=True).live().last()
-        context['editors_picks'] = self.get_children().filter(blogpage__editors_pick=False).live().order_by('-first_published_at')[:3]
+        context['editors_picks'] = self.get_children().filter(blogpage__editors_pick=True).live().order_by('-first_published_at')[:3]
         context['popular'] = self.get_children().live().order_by('-blogpage__views')[:5]
 
         return context
@@ -112,7 +112,7 @@ class BlogPage(Page):
         context['next'] = self.get_next_sibling()
         context['prev'] = self.get_prev_sibling()
         context['hot'] = self.get_siblings().filter(blogpage__hot_news=True).live().last()
-        context['editors_picks'] = self.get_siblings().filter(blogpage__editors_pick=False).live().order_by('-first_published_at')[:3]
+        context['editors_picks'] = self.get_siblings().filter(blogpage__editors_pick=True).live().order_by('-first_published_at')[:3]
         context['popular'] = self.get_siblings().live().order_by('-blogpage__views')[:5]
 
         return context
@@ -205,7 +205,7 @@ class BlogSearchPage(BlogIndexPage):
 
         context['blogposts'] = blogposts
         context['hot'] = BlogPage.objects.filter(hot_news=True).live().last()
-        context['editors_picks'] = BlogPage.objects.filter(editors_pick=False).live().order_by('-first_published_at')[:3]
+        context['editors_picks'] = BlogPage.objects.filter(editors_pick=True).live().order_by('-first_published_at')[:3]
         context['popular'] = BlogPage.objects.live().order_by('-views')[:5]
 
         return context

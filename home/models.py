@@ -18,7 +18,7 @@ class HomePage(Page):
         # Add additional context here
 
         context['hot'] = BlogPage.objects.filter(hot_news=True).live().last()
-        context['editors_picks'] = BlogPage.objects.filter(editors_pick=False).live().order_by('-first_published_at')[:3]
+        context['editors_picks'] = BlogPage.objects.filter(editors_pick=True).live().order_by('-first_published_at')[:3]
         context['popular'] = BlogPage.objects.live().order_by('-views')[:5]
 
         return context
