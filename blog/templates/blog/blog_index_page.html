@@ -59,7 +59,7 @@
                                             {% image post.main_image fill-263x180 class="img-fluid" %}
                                         </div>
                                         <ul class="tags">
-                                            {% for tag in post.tags.all %}
+                                            {% for tag in post.tags.all|slice:":2" %}
                                                 <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
                                             {% endfor %}
                                         </ul>
