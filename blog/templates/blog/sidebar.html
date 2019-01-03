@@ -38,7 +38,7 @@
                 <div class="post-lists">
                     
                     {% if editors_picks|length > 1 %}
-                        {% for post in editors_picks %}
+                        {% for post in editors_picks|slice:"1:" %}
                         
                             <div class="single-post d-flex flex-row">
                                 <div class="thumb">
