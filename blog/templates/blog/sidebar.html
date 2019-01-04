@@ -27,9 +27,11 @@
                                 <li><a href="#"><span class="lnr lnr-calendar-full"></span>{{ post.specific.publication_date}}</a></li>
                                 <li><a href="#"><span class="lnr lnr-smile"></span>{{ post.specific.views }}</a></li>
                             </ul>
+                            {% if post.specific.intro %}
                             <p class="excert">
                                 {{ post.specific.intro }}
                             </p>
+                            {% endif %}
                         </div>
                     {% endwith %}
                     
