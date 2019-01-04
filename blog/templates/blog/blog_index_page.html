@@ -33,11 +33,15 @@
                         <p class="text-white link-nav"><a href="/">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="{% pageurl page %}">{{ page.title }}</a></p>
                     </div>
                 </div>
+                {% if hot %}
                 <div class="col-lg-12">
                     <div class="news-tracker-wrap">
-                        <h6><span>Breaking News:</span>   <a href="#">Astronomy Binoculars A Great Alternative</a></h6>
+                        {% with post=hot %}
+                            <h6><span>Hot Thing:</span>   <a href="{% pageurl post %}">{{ post.title }}</a></h6>
+                        {% endwith %}
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
