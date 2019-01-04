@@ -39,11 +39,15 @@
                             <a href="{% pageurl page %}"> {{page.title}} </a></p>
                     </div>
                 </div>
+                {% if hot %}
                 <div class="col-lg-12">
                     <div class="news-tracker-wrap">
-                        <h6><span>Breaking News:</span>   <a href="#">Astronomy Binoculars A Great Alternative</a></h6>
+                        {% with post=hot %}
+                            <h6><span>Hot Thing:</span>   <a href="{% pageurl post %}">{{ post.title }}</a></h6>
+                        {% endwith %}
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -63,13 +67,16 @@
                                 {% endfor %}
                             </ul>
                             {% endif %}
+                            {% if page.intro %}
                             <a href="#">
-                                <h3>A Discount Toner Cartridge Is Better Than Ever.</h3>
+                                <h3>{{ page.intro }}</h3>
                             </a>
+                            {% endif %}
+
                             <ul class="meta pb-20">
                                 {% comment %} <li><a href="#"><span class="lnr lnr-user"></span>{{ page.author }}</a></li> {% endcomment %}
                                 <li><a href="#"><span class="lnr lnr-calendar-full"></span>{{ page.publication_date }}</a></li>
-                                {% comment %} <li><a href="#"><span class="lnr lnr-bubble"></span>06 </a></li> {% endcomment %}
+                                <li><a href="#"><span class="lnr lnr-smile"></span>{{ page.views }}</a></li>
                             </ul>
                             {{ page.body|richtext }}
                         <div class="navigation-wrap justify-content-between d-flex">
