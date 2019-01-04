@@ -36,6 +36,8 @@ class HomePage(Page):
 
         context['editors_picks'] = BlogPage.objects.filter(
             editors_pick=True).live().order_by('-first_published_at')[:3]
+
+        context['popular_picks'] = BlogPage.objects.filter(editors_pick=True).live().order_by('-views')[:3]
             
         context['popular'] = BlogPage.objects.live().order_by('-views')[:5]
 
