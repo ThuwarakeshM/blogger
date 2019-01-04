@@ -13,13 +13,13 @@
                                 {% image post.specific.main_image fill-300x180 class='img-fluid' %}
                             </div>
                             <ul class="tags">
-                                {% for tag in post.specific.tags.all %}
+                                {% for tag in post.specific.tags.all|slice:":2" %}
                                     <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
                         <div class="details">
-                            <a href="image-post.html">
+                            <a href="{% pageurl post %}">
                                 <h4 class="mt-20">{{ post.title }}</h4>
                             </a>
                             <ul class="meta">
