@@ -1,0 +1,186 @@
+
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-nav-area a:hover {
+        color:#f6214b;
+    }
+</style>
+
+{% endblock extra_css %}
+
+{% block content %}
+<div class="site-main-container">
+    <!-- Start top-post Area -->
+    <section class="top-post-area pt-10">
+        <div class="container no-padding">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hero-nav-area" 
+                    {% with page.main_image as main_image %}
+                        {% if main_image %}
+                            
+                            {% image main_image fill-1200x300-c100 as tmp_img %}
+                            style="background-image:url({{ tmp_img.url }});"
+
+                        {% endif %}
+                    {% endwith %}
+                    >
+                        <h1 class="text-white">{{page.title}}</h1>
+                        <p class="text-white link-nav">
+                            <a href="/">Home </a>  <span class="lnr lnr-arrow-right"></span>
+                            {% if page.category %}
+                                <a href="{% pageurl page.get_parent %}"> {{page.category.name}} </a><span class="lnr lnr-arrow-right"></span>
+                            {% endif %}
+                            <a href="{% pageurl page %}"> {{page.title}} </a></p>
+                    </div>
+                </div>
+                {% if hot %}
+                <div class="col-lg-12">
+                    <div class="news-tracker-wrap">
+                        {% with post=hot %}
+                            <h6><span>Hot Thing:</span>   <a href="{% pageurl post %}">{{ post.title }}</a></h6>
+                        {% endwith %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- End top-post Area -->
+    <!-- Start latest-post Area -->
+    <section class="latest-post-area pb-120">
+        <div class="container no-padding">
+            <div class="row">
+                <div class="col-lg-8 post-list">
+                    <!-- Start single-post Area -->
+                    <div class="single-post-wrap">
+                        <div class="content-wrap">
+                            {% if page.tags.all.count %}
+                            <ul class="tags">
+                                {% for tag in page.tags.all %}
+                                    <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            {% if page.intro %}
+                            <a href="#">
+                                <h3>{{ page.intro }}</h3>
+                            </a>
+                            {% endif %}
+
+                            <ul class="meta pb-20">
+                                {% comment %} <li><a href="#"><span class="lnr lnr-user"></span>{{ page.author }}</a></li> {% endcomment %}
+                                <li><a href="#"><span class="lnr lnr-calendar-full"></span>{{ page.publication_date }}</a></li>
+                                <li><a href="#"><span class="lnr lnr-smile"></span>{{ page.views }}</a></li>
+                            </ul>
+                            {{ page.body|richtext }}
+                        <div class="navigation-wrap justify-content-between d-flex">
+                            {% if prev %}
+                                <a class="prev" href="{% pageurl prev %}"><span class="lnr lnr-arrow-left"></span>Prev Post</a>                            
+                            {% endif %}
+
+                            {% if next %}
+                                <a class="next" href="{% pageurl next %}">Next Post<span class="lnr lnr-arrow-right"></span></a>
+                            {% endif %}
+                        </div>
+                        
+                        {% comment %} <div class="comment-sec-area">
+                            <div class="container">
+                                <div class="row flex-column">
+                                    <h6>05 Comments</h6>
+                                    <div class="comment-list">
+                                        <div class="single-comment justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex">
+                                                <div class="thumb">
+                                                    <img src="{% static 'img/blog/c1.jpg' %}" alt="">
+                                                </div>
+                                                <div class="desc">
+                                                    <h5><a href="#">Emilly Blunt</a></h5>
+                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
+                                                    <p class="comment">
+                                                        Never say goodbye till the end comes!
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="reply-btn">
+                                                <a href="" class="btn-reply text-uppercase">reply</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comment-list left-padding">
+                                        <div class="single-comment justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex">
+                                                <div class="thumb">
+                                                    <img src="{% static 'img/blog/c2.jpg' %}" alt="">
+                                                </div>
+                                                <div class="desc">
+                                                    <h5><a href="#">Emilly Blunt</a></h5>
+                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
+                                                    <p class="comment">
+                                                        Never say goodbye till the end comes!
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="reply-btn">
+                                                <a href="" class="btn-reply text-uppercase">reply</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comment-list">
+                                        <div class="single-comment justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex">
+                                                <div class="thumb">
+                                                    <img src="{% static 'img/blog/c3.jpg' %}" alt="">
+                                                </div>
+                                                <div class="desc">
+                                                    <h5><a href="#">Emilly Blunt</a></h5>
+                                                    <p class="date">December 4, 2017 at 3:12 pm </p>
+                                                    <p class="comment">
+                                                        Never say goodbye till the end comes!
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="reply-btn">
+                                                <a href="" class="btn-reply text-uppercase">reply</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+                    </div>
+                    {% comment %} <div class="comment-form">
+                        <h4>Post Comment</h4>
+                        <form>
+                            <div class="form-group form-inline">
+                                <div class="form-group col-lg-6 col-md-12 name">
+                                    <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'">
+                                </div>
+                                <div class="form-group col-lg-6 col-md-12 email">
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
+                            </div>
+                            <a href="#" class="primary-btn text-uppercase">Post Comment</a>
+                        </form>
+                    </div> {% endcomment %}
+                </div>
+                <!-- End single-post Area -->
+            </div>
+            {% include "blog/sidebar.html" %}
+        </div>
+    </div>
+</section>
+<!-- End latest-post Area -->
+</div>
+{% endblock content %}

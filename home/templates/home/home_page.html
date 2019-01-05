@@ -1,21 +1,317 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
 
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
+<div class="site-main-container">
+    <!-- Start top-post Area -->
+    <section class="top-post-area pt-10">
+        <div class="container no-padding">
+            <div class="row small-gutters">
 
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-{% include 'home/welcome_page.html' %}
+                {% with post=main_articles.first %}
+                    <div class="col-lg-8 top-post-left">
+                        <div class="feature-image-thumb relative">
+                            <div class="overlay overlay-bg"></div>
+                            {% image post.main_image fill-750x439 class="img-fluid" %}
+                        </div>
+                        <div class="top-post-details">
+                            <ul class="tags">
+                                {% for tag in post.tags.all|slice:":2" %}
+                                    <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            <a href="{% pageurl post %}">
+                                <h3>{{ post.title }}</h3>
+                            </a>
+                            <ul class="meta">
+                                {% comment %} <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li> {% endcomment %}
+                                <li><a href="{% pageurl post %}"><span class="lnr lnr-calendar-full"></span>{{ post.publication_date}}</a></li>
+                                <li><a href="{% pageurl post %}"><span class="lnr lnr-smile"></span>{{ post.views }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endwith %}
 
+                
+                <div class="col-lg-4 top-post-right">
+                    {% if main_articles|length > 1 %}
+                    {% with post=main_articles.1 %}
+                        <div class="single-top-post">
+                            <div class="feature-image-thumb relative">
+                                <div class="overlay overlay-bg"></div>
+                                {% image post.main_image fill-750x439 class="img-fluid" %}
+                            </div>
+                            <div class="top-post-details">
+                                <ul class="tags">
+                                    {% for tag in post.tags.all|slice:":2" %}
+                                        <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                                <a href="{% pageurl post %}">
+                                    <h4> {{ post.title }} </h4>
+                                </a>
+                                <ul class="meta">
+                                    {% comment %} <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li> {% endcomment %}
+                                    <li><a href="{% pageurl post %}"><span class="lnr lnr-calendar-full"></span>{{ post.publication_date }}</a></li>
+                                    <li><a href="{% pageurl post %}"><span class="lnr lnr-smile"></span>{{ post.views }}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endwith %}
+                    {% endif %}
+                    
+                    {% if main_articles|length > 2 %}
+                    {% with post=main_articles.2 %}
+                    <div class="single-top-post mt-10">
+                        <div class="feature-image-thumb relative">
+                            <div class="overlay overlay-bg"></div>
+                            {% image post.main_image fill-750x439 class="img-fluid" %}
+                        </div>
+                        <div class="top-post-details">
+                            <ul class="tags">
+                                {% for tag in post.tags.all|slice:":2" %}
+                                    <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            <a href="{% pageurl post %}">
+                                <h4>{{ post.title }}</h4>
+                            </a>
+                            <ul class="meta">
+                                {% comment %} <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li> {% endcomment %}
+                                <li><a href="{% pageurl post %}"><span class="lnr lnr-calendar-full"></span>{{ post.publication_date }}</a></li>
+                                <li><a href="{% pageurl post %}"><span class="lnr lnr-bubble"></span>{{ post.views }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {% endwith %}
+                    {% endif %}
+                    
+                </div>
+
+
+                {% if hot %}
+                <div class="col-lg-12">
+                    <div class="news-tracker-wrap">
+                        {% with post=hot %}
+                            <h6><span>Hot Thing:</span>   <a href="{% pageurl post %}">{{ post.title }}</a></h6>
+                        {% endwith %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!-- End top-post Area -->
+    <!-- Start latest-post Area -->
+    <section class="latest-post-area pb-120">
+        <div class="container no-padding">
+            <div class="row">
+                <div class="col-lg-8 post-list">
+                    <!-- Start latest-post Area -->
+                    <div class="latest-post-wrap">
+                        <h4 class="cat-title">Latest News</h4>
+                        {% for post in latest %}
+                        
+                        <div class="single-latest-post row align-items-center">
+                            <div class="col-lg-5 post-left">
+                                <div class="feature-img relative">
+                                    <div class="overlay overlay-bg"></div>
+                                    {% image post.main_image fill-260x180 class="img-fluid" %}
+                                </div>
+                                <ul class="tags">
+                                    {% for tag in post.tags.all|slice:":2" %}
+                                        <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-lg-7 post-right">
+                                <a href="{% pageurl post %}">
+                                    <h4>{{ post.title }}</h4>
+                                </a>
+                                <ul class="meta">
+                                    {% comment %} <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li> {% endcomment %}
+                                    <li><a href="{% pageurl post %}"><span class="lnr lnr-calendar-full"></span>{{ post.publication_date }}</a></li>
+                                    <li><a href="{% pageurl post %}"><span class="lnr lnr-smile"></span>{{ post.views }}</a></li>
+                                </ul>
+                                {% if post.intro %}
+                                <p class="excert">
+                                    {{ post.intro }}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                        
+                        
+                    </div>
+                    <!-- End latest-post Area -->
+
+                    <!-- Start banner-ads Area -->
+                    <div class="col-lg-12 ad-widget-wrap mt-30 mb-30">
+                        <img class="img-fluid" src="{% static 'img/banner-ad.jpg' %}" alt="">
+                    </div>
+                    <!-- End banner-ads Area -->
+                    <!-- Start popular-post Area -->
+
+                        {% if popular_picks|length %}
+                        <div class="popular-post-wrap">
+                            <h4 class="title">Popular Posts</h4>
+
+                            {% with post=popular_picks.first %}
+                            <div class="feature-post relative">
+                                <div class="feature-img relative">
+                                    <div class="overlay overlay-bg"></div>
+                                    {% image post.main_image fill-690x300 class="img-fluid" %}
+                                </div>
+                                <div class="details">
+                                    <ul class="tags">
+                                        {% for tag in post.tags.all|slice:":2" %}
+                                            <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    <a href="{% pageurl post%}">
+                                        <h3>{{ post.title }}</h3>
+                                    </a>
+                                    <ul class="meta">
+                                        {% comment %} <li><a href="{% pageurl post%}"><span class="lnr lnr-user"></span>Mark wiens</a></li> {% endcomment %}
+                                        <li><a href="{% pageurl post%}"><span class="lnr lnr-calendar-full"></span>{{ post.publication_date }}</a></li>
+                                        <li><a href="{% pageurl post%}"><span class="lnr lnr-smile"></span>{{ post.views }}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endwith %}
+                            
+                            
+                            <div class="row mt-20 medium-gutters">
+
+                                {% if popular_picks|length > 1 %}
+                                
+                                    {% with post=popular_picks.1 %}
+                                    <div class="col-lg-6 single-popular-post">
+                                        <div class="feature-img-wrap relative">
+                                            <div class="feature-img relative">
+                                                <div class="overlay overlay-bg"></div>
+                                                {% image post.main_image fill-335x180 class="img-fluid" %}
+                                            </div>
+                                            <ul class="tags">
+                                                {% for tag in post.tags.all|slice:":2" %}
+                                                    <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        <div class="details">
+                                            <a href="{% pageurl post %}">
+                                                <h4>{{ post.title }}</h4>
+                                            </a>
+                                            <ul class="meta">
+                                                {% comment %} <li><a href="{% pageurl post %}"><span class="lnr lnr-user"></span>Mark wiens</a></li> {% endcomment %}
+                                                <li><a href="{% pageurl post %}"><span class="lnr lnr-calendar-full"></span>{{ post.publication_date }}</a></li>
+                                                <li><a href="{% pageurl post %}"><span class="lnr lnr-smile"></span>{{post.views}}</a></li>
+                                            </ul>
+                                            {% if post.intro %}
+                                                <p class="excert">
+                                                    {{ post.intro }}
+                                                </p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endwith %}
+
+                                {% endif %}
+
+                                {% if popular_picks|length > 2 %}
+                                
+                                    {% with post=popular_picks.2 %}
+                                    <div class="col-lg-6 single-popular-post">
+                                        <div class="feature-img-wrap relative">
+                                            <div class="feature-img relative">
+                                                <div class="overlay overlay-bg"></div>
+                                            {% image post.main_image fill-335x180 class="img-fluid" %}
+                                            </div>
+                                            <ul class="tags">
+                                                {% for tag in post.tags.all|slice:":2" %}
+                                                    <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        <div class="details">
+                                            <a href="{% pageurl post %}">
+                                                <h4>{{ post.title }}</h4>
+                                            </a>
+                                            <ul class="meta">
+                                                {% comment %} <li><a href="{% pageurl post %}"><span class="lnr lnr-user"></span>Mark wiens</a></li> {% endcomment %}
+                                                <li><a href="{% pageurl post %}"><span class="lnr lnr-calendar-full"></span>{{ post.publication_date }}</a></li>
+                                                <li><a href="{% pageurl post %}"><span class="lnr lnr-smile"></span>{{ post.views }}</a></li>
+                                            </ul>
+                                            {% if post.intro %}
+                                                <p class="excert">
+                                                    {{ post.intro }}
+                                                </p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endwith %}
+
+                                {% endif %}
+
+                                
+                            </div>
+                        </div>
+
+                        {% endif %}
+                    <!-- End popular-post Area -->
+                    <!-- Start relavent-story-post Area -->
+                    <div class="relavent-story-post-wrap mt-30">
+                        <h4 class="title">Relavent Stories</h4>
+                        <div class="relavent-story-list-wrap">
+
+                            {% for post in recent_popular %}
+                            <div class="single-relavent-post row align-items-center">
+                                <div class="col-lg-5 post-left">
+                                    <div class="feature-img relative">
+                                        <div class="overlay overlay-bg"></div>
+                                        {% image post.main_image fill-260x180 class="img-fluid" %}
+                                    </div>
+                                    <ul class="tags">
+                                        {% for tag in post.tags.all|slice:":2" %}
+                                            <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-lg-7 post-right">
+                                    <a href="{% pageurl post %}">
+                                        <h4>{{ post.title }}</h4>
+                                    </a>
+                                    <ul class="meta">
+                                        {% comment %} <li><a href="#"><span class="lnr lnr-user"></span>Mark wiens</a></li> {% endcomment %}
+                                        <li><a href="{% pageurl post %}"><span class="lnr lnr-calendar-full"></span>{{ post.publication_date }}</a></li>
+                                        <li><a href="{% pageurl post %}"><span class="lnr lnr-smile"></span>{{ post.views }}</a></li>
+                                    </ul>
+                                    {% if post.intro %}
+                                    <p class="excert">
+                                        {{ post.intro }}
+                                    </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                    <!-- End relavent-story-post Area -->
+                </div>
+                {% include 'blog/sidebar.html' %}
+            </div>
+        </div>
+    </section>
+    <!-- End latest-post Area -->
+</div>
 {% endblock content %}
