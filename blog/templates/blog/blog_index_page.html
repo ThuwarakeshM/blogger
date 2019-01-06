@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags %}
 
+{% block extra_seo %}
+        <meta name="description" content="{{ page.search_description }}" />
+{% endblock extra_seo %}
+
 {% block body_class %}template-blogindexpage{% endblock %}
 
 {% block extra_css %}
