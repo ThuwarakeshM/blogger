@@ -187,4 +187,10 @@
 </section>
 <!-- End latest-post Area -->
 </div>
+<script src="{% static 'blog/jquery.fitvids.js' %}"></script>
+<script>
+  $(document).ready(function(){
+    $(".content-wrap").fitVids();
+  });
+</script>
 {% endblock content %}
