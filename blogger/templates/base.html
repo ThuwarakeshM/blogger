@@ -111,11 +111,11 @@
                                 <li><a href="/fun-facts">Fun Facts</a></li>
                             </ul>
                         </nav><!-- #nav-menu-container -->
-                        <div class="navbar-right d-none d-sm-block">
-                            <form class="Search" action="/blog_search" method="get">
-                                <input type="text" class="form-control Search-box" name="query" id="Search-box" placeholder="Search">
+                        <div class="navbar-right">
+                            <form class="Search" action="/blog_search" method="get" style="pointer-events:none;">
+                                <input type="text" class="form-control Search-box" name="query" id="Search-box" placeholder="Search" style="z-index:0;">
                                 <label for="Search-box" class="Search-box-label">
-                                    <span class="lnr lnr-magnifier"></span>
+                                    <span class="lnr lnr-magnifier" style="pointer-events:all;"></span>
                                 </label>
                                 <span class="Search-close">
                                     <span class="lnr lnr-cross"></span>
