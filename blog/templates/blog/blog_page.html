@@ -187,4 +187,14 @@
 </section>
 <!-- End latest-post Area -->
 </div>
+
 {% endblock content %}
+
+{% block extra_js %}
+    <script src="{% static 'blog/jquery.fitvids.js' %}"></script>
+    <script>
+    $(document).ready(function(){
+        $(".content-wrap").fitVids();
+    });
+    </script>
+{% endblock %}

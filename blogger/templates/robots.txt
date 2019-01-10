@@ -1,0 +1,74 @@
+User-agent: Applebot
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: baiduspider
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: Bingbot
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: Googlebot
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: Slurp
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: Twitterbot
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: Yandex
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: Yeti
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: teoma
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: seznambot
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: Naverbot
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: msnbot
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: ia_archiver
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: Facebot
+Disallow: /admin
+Disallow: /tags
+Disallow: /blog_search
+
+User-agent: *
+Disallow: /
+
+Sitemap: https://vikatakavi.info/sitemap.xml

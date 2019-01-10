@@ -3,6 +3,17 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132039316-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-132039316-1');
+        </script>
+        
         <meta charset="utf-8" />
         <title>
             {% block title %}
@@ -22,6 +33,7 @@
         <meta property="og:type"          content="{{ self.get_site.hostname }}" />
         <meta property="og:title"         content="{{ self.title }}" />
         <meta property="og:description"   content="{{ self.search_description }}" />
+        <link rel="icon" href="{% static 'img/favicon.ico'%}">
         {% if self.main_image %}
             {% image self.main_image fill-1200x630 as tmp_photo %}
             <meta property="og:image"         content="{{ self.get_site.root_url }}{{ tmp_photo.url }}" />
@@ -35,6 +47,7 @@
             enable_page_level_ads: true
         });
         </script>
+        <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5c33011aa47fe500116a8e64&product=sop' async='async'></script>
 
         {# Global stylesheets #}
         <!-- CSS ============================================= -->
@@ -49,6 +62,12 @@
         <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <style>
+            .rich-text img {
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -68,26 +87,6 @@
 
         <!-- Start Header Area -->
         <header>
-                {% comment %} <div class="header-top">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-left no-padding">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-right no-padding">
-                                <ul>
-                                    <li><a href="tel:+440 012 3654 896"><span class="lnr lnr-phone-handset"></span><span>+440 012 3654 896</span></a></li>
-                                    <li><a href="mailto:support@colorlib.com"><span class="lnr lnr-envelope"></span><span>support@colorlib.com</span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div> {% endcomment %}
                 <div class="logo-wrap">
                     <div class="container">
                         <div class="row justify-content-between align-items-center">
@@ -110,22 +109,13 @@
                                 <li><a href="/technology">Technology</a></li>
                                 <li><a href="/cinema">Cinema</a></li>
                                 <li><a href="/fun-facts">Fun Facts</a></li>
-                                {% comment %} <li class="menu-has-children"><a href="">Post Types</a>
-                                    <ul>
-                                        
-                                        <li><a href="video-post.html">Video Post</a></li>
-                                        <li><a href="audio-post.html">Audio Post</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                        </ul> {% endcomment %}
+                            </ul>
                         </nav><!-- #nav-menu-container -->
                         <div class="navbar-right">
-                            <form class="Search" action="/blog_search" method="get">
-                                <input type="text" class="form-control Search-box" name="query" id="Search-box" placeholder="Search">
+                            <form class="Search" action="/blog_search" method="get" style="pointer-events:none;">
+                                <input type="text" class="form-control Search-box" name="query" id="Search-box" placeholder="Search" style="z-index:0;">
                                 <label for="Search-box" class="Search-box-label">
-                                    <span class="lnr lnr-magnifier"></span>
+                                    <span class="lnr lnr-magnifier" style="pointer-events:all;"></span>
                                 </label>
                                 <span class="Search-close">
                                     <span class="lnr lnr-cross"></span>
@@ -145,67 +135,11 @@
         <!-- start footer Area -->
         <footer class="footer-area section-gap py-0">
             <div class="container">
-                {% comment %} <div class="row">
-                    <div class="col-lg-3 col-md-6 single-footer-widget">
-                        <h4>Top Products</h4>
-                        <ul>
-                            <li><a href="#">Managed Website</a></li>
-                            <li><a href="#">Manage Reputation</a></li>
-                            <li><a href="#">Power Tools</a></li>
-                            <li><a href="#">Marketing Service</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-6 single-footer-widget">
-                        <h4>Quick Links</h4>
-                        <ul>
-                            <li><a href="#">Jobs</a></li>
-                            <li><a href="#">Brand Assets</a></li>
-                            <li><a href="#">Investor Relations</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-6 single-footer-widget">
-                        <h4>Features</h4>
-                        <ul>
-                            <li><a href="#">Jobs</a></li>
-                            <li><a href="#">Brand Assets</a></li>
-                            <li><a href="#">Investor Relations</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-2 col-md-6 single-footer-widget">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="#">Guides</a></li>
-                            <li><a href="#">Research</a></li>
-                            <li><a href="#">Experts</a></li>
-                            <li><a href="#">Agencies</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-6 single-footer-widget">
-                        <h4>Instragram Feed</h4>
-                        <ul class="instafeed d-flex flex-wrap">
-                            <li><img src="{% static 'img/i1.jpg' %}" alt=""></li>
-                            <li><img src="{% static 'img/i2.jpg' %}" alt=""></li>
-                            <li><img src="{% static 'img/i3.jpg' %}" alt=""></li>
-                            <li><img src="{% static 'img/i4.jpg' %}" alt=""></li>
-                            <li><img src="{% static 'img/i5.jpg' %}" alt=""></li>
-                            <li><img src="{% static 'img/i6.jpg' %}" alt=""></li>
-                            <li><img src="{% static 'img/i7.jpg' %}" alt=""></li>
-                            <li><img src="{% static 'img/i8.jpg' %}" alt=""></li>
-                        </ul>
-                    </div>
-                </div> {% endcomment %}
                 <div class="footer-bottom row align-items-center">
                     <p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    {% comment %} <div class="col-lg-4 col-md-12 footer-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-dribbble"></i></a>
-                        <a href="#"><i class="fa fa-behance"></i></a>
-                    </div> {% endcomment %}
+                    
                 </div>
             </div>
         </footer>
