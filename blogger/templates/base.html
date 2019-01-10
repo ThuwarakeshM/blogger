@@ -1,8 +1,19 @@
-{% load static wagtailuserbar %}
+{% load static wagtailuserbar wagtailcore_tags wagtailimages_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132039316-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-132039316-1');
+        </script>
+        
         <meta charset="utf-8" />
         <title>
             {% block title %}
@@ -14,11 +25,49 @@
                 {% endwith %}
             {% endblock %}
         </title>
-        <meta name="description" content="" />
+
+        {% block extra_seo %}
+
+        {% endblock extra_seo %}
+        <meta property="og:url"           content="{{ self.full_url }}" />
+        <meta property="og:type"          content="{{ self.get_site.hostname }}" />
+        <meta property="og:title"         content="{{ self.title }}" />
+        <meta property="og:description"   content="{{ self.search_description }}" />
+        <link rel="icon" href="{% static 'img/favicon.ico'%}">
+        {% if self.main_image %}
+            {% image self.main_image fill-1200x630 as tmp_photo %}
+            <meta property="og:image"         content="{{ self.get_site.root_url }}{{ tmp_photo.url }}" />
+        {% endif %}
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7706879641379502",
+            enable_page_level_ads: true
+        });
+        </script>
+        <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5c33011aa47fe500116a8e64&product=sop' async='async'></script>
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/blogger.css' %}">
+        <!-- CSS ============================================= -->
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+
+        
+        <link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+        <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <style>
+            .rich-text img {
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -26,12 +75,88 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
+
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=226527271611536&autoLogAppEvents=1';
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        <!-- Start Header Area -->
+        <header>
+                <div class="logo-wrap">
+                    <div class="container">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-lg-4 col-md-4 col-sm-12 logo-left no-padding">
+                                <a href="/">
+                                    <img class="img-fluid" src="{% static 'img/logo.png' %}" alt="">
+                                </a>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-12 logo-right no-padding ads-banner">
+                                <img class="img-fluid" src="{% static 'img/banner-ad.jpg' %}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container main-menu" id="main-menu">
+                    <div class="row align-items-center justify-content-between">
+                        <nav id="nav-menu-container">
+                            <ul class="nav-menu">
+                                <li class="menu-active"><a href="/">Home</a></li>
+                                <li><a href="/technology">Technology</a></li>
+                                <li><a href="/cinema">Cinema</a></li>
+                                <li><a href="/fun-facts">Fun Facts</a></li>
+                            </ul>
+                        </nav><!-- #nav-menu-container -->
+                        <div class="navbar-right">
+                            <form class="Search" action="/blog_search" method="get" style="pointer-events:none;">
+                                <input type="text" class="form-control Search-box" name="query" id="Search-box" placeholder="Search" style="z-index:0;">
+                                <label for="Search-box" class="Search-box-label">
+                                    <span class="lnr lnr-magnifier" style="pointer-events:all;"></span>
+                                </label>
+                                <span class="Search-close">
+                                    <span class="lnr lnr-cross"></span>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </header>
+        <!-- End Header Area -->
+
         {% wagtailuserbar %}
+        <main class="site-main">
+            {% block content %}{% endblock %}
+        </main>
 
-        {% block content %}{% endblock %}
-
+        <!-- start footer Area -->
+        <footer class="footer-area section-gap py-0">
+            <div class="container">
+                <div class="footer-bottom row align-items-center">
+                    <p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    
+                </div>
+            </div>
+        </footer>
+        <!-- End footer Area -->
+        
         {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/blogger.js' %}"></script>
+        <!-- JavaScripts ========================== -->
+        <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+        <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+        <script src="{% static 'js/superfish.min.js' %}"></script>  
+        <script src="{% static 'js/jquery-ui.js' %}"></script>  
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}

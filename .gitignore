@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-#Migrations 
-migrations/
-
 # C extensions
 *.so
 
@@ -111,3 +108,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Uploaded content
+media/
+
+*.conf
