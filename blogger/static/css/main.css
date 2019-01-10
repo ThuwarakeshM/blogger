@@ -3317,3 +3317,7 @@ div.thumbnail_container .overlay-bg {
 .footer-area .footer-bottom .footer-social a:hover {
   background: #f6214b;
 }
+
+.rich-text img {
+  max-width: 100%;
+}
