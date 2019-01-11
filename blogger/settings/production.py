@@ -1,12 +1,10 @@
 from .base import *
-import os
 
-env = os.environ.copy()
-SECRET_KEY = env['VIKAT_SECRET_KEY']
+SECRET_KEY = 'al5*^^_$*$l0xo36)4f6!rku)024z(&d0kt%id5=5(pdryoxe_'
 
-ALLOWED_HOSTS = ['vikatakavi.info', '*.vikatakavi.info'] 
+ALLOWED_HOSTS = ['vikatakavi.info', '*.vikatakavi.info']
 
-DEBUG = False
+DEBUG = True
 
 try:
     from .local import *
