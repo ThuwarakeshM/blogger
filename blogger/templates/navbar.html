@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+
+<nav id="nav-menu-container">
+    <ul class="nav-menu">
+        <li class="menu-active"><a href="{% pageurl home_page %}">{{ home_page.title }}</a></li>
+        {% for pg in ix_pages %}
+            <li><a href="{% pageurl pg %}">{{ pg.title }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>

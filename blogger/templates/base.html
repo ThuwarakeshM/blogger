@@ -1,4 +1,4 @@
-{% load static wagtailuserbar wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailuserbar wagtailcore_tags wagtailimages_tags navbar %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -103,14 +103,15 @@
                 </div>
                 <div class="container main-menu" id="main-menu">
                     <div class="row align-items-center justify-content-between">
-                        <nav id="nav-menu-container">
+                        {% comment %} <nav id="nav-menu-container">
                             <ul class="nav-menu">
                                 <li class="menu-active"><a href="/">Home</a></li>
                                 <li><a href="/technology">Technology</a></li>
                                 <li><a href="/cinema">Cinema</a></li>
                                 <li><a href="/fun-facts">Fun Facts</a></li>
                             </ul>
-                        </nav><!-- #nav-menu-container -->
+                        </nav><!-- #nav-menu-container --> {% endcomment %}
+                        {% navbar %}
                         <div class="navbar-right">
                             <form class="Search" action="/blog_search" method="get" style="pointer-events:none;">
                                 <input type="text" class="form-control Search-box" name="query" id="Search-box" placeholder="Search" style="z-index:0;">
