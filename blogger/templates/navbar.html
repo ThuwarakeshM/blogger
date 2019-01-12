@@ -3,8 +3,20 @@
 <nav id="nav-menu-container">
     <ul class="nav-menu">
         <li class="menu-active"><a href="{% pageurl home_page %}">{{ home_page.title }}</a></li>
-        {% for pg in ix_pages %}
+        {% for pg in ix_pages|slice:":5" %}
             <li><a href="{% pageurl pg %}">{{ pg.title }}</a></li>
         {% endfor %}
+        {% if ix_pages|length > 5 %}
+        
+        <li class="menu-has-children"><a href="">All Categories</a>
+            <ul>
+                {% for pg in ix_pages|slice:":5" %}
+                    <li><a href="{% pageurl pg %}">{{ pg.title }}</a></li>
+                {% endfor %}
+                
+            </ul>
+        </li>
+
+        {% endif %}
     </ul>
 </nav>
