@@ -1,7 +1,9 @@
-{% load static wagtailuserbar wagtailcore_tags wagtailimages_tags navbar %}
+{% load static wagtailuserbar wagtailcore_tags wagtailimages_tags navbar cache %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+    {% cache None head_area request.path %}
+
     <head>
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -72,7 +74,10 @@
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
+
     </head>
+    {% endcache %}
+
 
     <body class="{% block body_class %}{% endblock %}">
 

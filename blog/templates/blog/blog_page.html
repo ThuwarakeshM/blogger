@@ -1,7 +1,7 @@
 
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
-
+{% load static wagtailcore_tags wagtailimages_tags cache %}
+{% cache None page_cache %}
 {% block extra_seo %}
         <meta name="description" content="{{ page.search_description }}" />
 {% endblock extra_seo %}
@@ -220,3 +220,4 @@
     });
     </script>
 {% endblock %}
+{% endcache %}
