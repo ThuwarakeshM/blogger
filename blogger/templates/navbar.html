@@ -1,5 +1,6 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags cache %}
 
+{% cache 604800 navbar %}
 <nav id="nav-menu-container">
     <ul class="nav-menu">
         <li class="menu-active"><a href="{% pageurl home_page %}">{{ home_page.title }}</a></li>
@@ -20,3 +21,4 @@
         {% endif %}
     </ul>
 </nav>
+{% endcache %}

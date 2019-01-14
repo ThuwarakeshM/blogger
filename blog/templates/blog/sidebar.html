@@ -1,5 +1,6 @@
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags cache %}
 
+{% cache 43200 sidebar_cache request.path %}
 <div class="col-lg-4">
     <div class="sidebars-area">
         <div class="single-sidebar-widget editors-pick-widget">
@@ -148,3 +149,5 @@
         </div>
     </div>
 </div>
+
+{% endcache %}
